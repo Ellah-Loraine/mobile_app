@@ -173,3 +173,48 @@ class _NavItem {
   final IconData activeIcon;
   const _NavItem({required this.label, required this.icon, required this.activeIcon});
 }
+
+
+
+class MyForm extends StatefulWidget {
+  @override
+  _MyFormState createState() => _MyFormState();
+}
+
+class _MyFormState extends State<MyForm> {
+  final TextEditingController _controller = TextEditingController();
+  String _result = '';
+
+  @override
+  void dispose() {
+    _controller.dispose(); // Always dispose controllers!
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          TextField(
+            controller: _controller,
+            decoration: InputDecoration(
+              labelText: 'Your name',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                _result = 'Hello, ${_controller.text}!';
+              });
+            },
+            child: Text('Submit'),
+          ),
+          if (_result.isNotEmpty) Text(_result),
+        ],
+      ),
+    );
+  }
